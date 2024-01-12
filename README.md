@@ -1,0 +1,2 @@
+# laravel
+RabbitLoader for Laravel
