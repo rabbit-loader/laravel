@@ -35,9 +35,11 @@ class Process
 
         $this->rlSDK->setPlatform([
             'plugin_cms' => 'laravel',
-            'plugin_v' => '1.0.0',
+            'plugin_v' => '1.2.0',
             'cms_v' => App::version()
         ]);
+
+        $this->rlSDK->setDebug(config('rabbitloader.debugMode', false));
     }
 
     /**
