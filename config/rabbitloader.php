@@ -22,4 +22,7 @@ return [
 
     //these parameters will be ignored when looking for cached data
     'ignoreParams' => [],
+
+    //boolean - if true, prints additional debug message for RabbitLoader support team to gain more insights. production ready app should have this value false
+    'debugMode' => env('RABBIT_LOADER_DEBUG_MODE', false),
 ];
