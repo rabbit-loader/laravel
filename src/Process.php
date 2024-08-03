@@ -35,7 +35,7 @@ class Process
 
         $this->rlSDK->setPlatform([
             'plugin_cms' => 'laravel',
-            'plugin_v' => '1.2.1',
+            'plugin_v' => '1.3.0',
             'cms_v' => App::version()
         ]);
 
@@ -103,10 +103,14 @@ class Process
      */
     private function setCanonical(&$html)
     {
+        $headElements = '';
         $canURL = URL::current();
         if (!empty($canURL)) {
-            $metaTag = "<meta name='rl:url' content='$canURL'>";
-            $html = str_ireplace('</head>', $metaTag . '</head>', $html, $replaced);
+            $headElements .= "<meta name='rl:url' content='$canURL'>";
         }
+
+        $headElements .= "<script data-rlskip='1'>window.setTimeout(function(){if(rlPageData&&rlPageData.rlCached){var e=`querySelectorAll`;let t=document[e](`input[type='hidden'][name='_token']`),n=document[e](`meta[name='csrf-token']`);(0!=t.length||0!=n.length)&&fetch(`/rl-csrf-token`).then(e=>e.json()).then(e=>{e.csrf_token&&(t.forEach(t=>{t.value=e.csrf_token}),n.forEach(t=>{t.setAttribute(`content`,e.csrf_token)}))})}},1e3);</script>";
+
+        $html = str_ireplace('</head>', $headElements . '</head>', $html, $replaced);
     }
 }
