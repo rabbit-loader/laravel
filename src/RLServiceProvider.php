@@ -21,6 +21,17 @@ class RLServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/rabbitloader.php' => config_path('rabbitloader.php'),
         ]);
+
+        \Illuminate\Support\Facades\Route::middleware('web')->get(
+            '/rl-csrf-token',
+            function (\Illuminate\Http\Request $request) {
+                $token = $request->session()->token();
+                if (!$token) {
+                    $token = csrf_token();
+                }
+                return ['csrf_token' => $token];
+            }
+        )->name('rl.csrf-token');
     }
 
     /**
